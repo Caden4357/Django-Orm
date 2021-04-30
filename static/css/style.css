@@ -1,0 +1,16 @@
+#form{
+    background-color: aliceblue;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+
+}
+#sub{
+    margin-top: 20px;
+}
+#dojos{
+    display: flex;
+    justify-content: center;
+}
+

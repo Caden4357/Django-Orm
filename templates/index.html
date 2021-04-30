@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <title>Dojos And Ninjas</title>
+</head>
+<body>
+    <div class="container">
+        <div id="form" class="row">
+            <div class="col-4">
+                <form action="/create_dojo" method="POST">
+                    {%csrf_token%}
+                    <h2>Add A Dojo</h2>
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" name="state">
+                    <label for="description">Tell us About Your Dojo</label>
+                    <textarea name="desc" class="form-control" id="desc" cols="20" rows="5"></textarea>
+                    <input type="hidden" name="add_dojo" value="add_dojo">
+                    <input id="sub" type="submit" value="Add">
+                </form>
+            </div>
+            <div class="col-4">
+                <form action="/create_ninja" method="POST">
+                    {%csrf_token%}
+                    <h2>Add A Ninja</h2>
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" name="first_name" id="">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" id="">
+                    <label for="dojo">Dojo</label>
+                    <select name="dojo_menu" class="form-control">
+                        {% for dojo in all_dojos %}
+                            <option value="{{dojo.id}}">{{dojo.name}}</option>
+                            {%endfor%}
+                    </select>
+                    <label for="description">Tell us About Yourself</label>
+                    <textarea name="desc" class="form-control" id="desc" cols="20" rows="5"></textarea>
+                    <input type="hidden" name="add_ninja" value="add_ninja">
+                    <input id="sub" type="submit" value="Add">
+                </form>
+            </div>
+        </div>
+        <h3>All The Dojos!</h3>
+        <div id="dojos">
+            {% for dojo in all_dojos %}
+            <h4>{{dojo.name}}</h4>
+                <ul>
+                    {% for ninja in dojo.dojo_ninja_belongs_too.all %}
+                    <li>{{ninja.first_name}} {{ninja.last_name}}</li>
+                    {%endfor%}
+                    {%endfor%}
+                </ul>
+        </div>
+    </div>
+</body>
+</html>
