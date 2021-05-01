@@ -17,14 +17,14 @@ def create_ninja(request):
         new_user = Ninja.objects.create(first_name= request.POST['first_name'], last_name= request.POST['last_name'], dojo_id= request.POST['dojo_menu'])
     return redirect('/')
 
-def delete(request, dojo_id):
-    context = {
-        'dojo': Dojo.objects.get(id=dojo_id)
-    }
-    dojo_to_delete = Dojo.objects.get(id=dojo_id)
+def delete(request):
+    # context = {
+    #     'dojo': Dojo.objects.get(id=dojo_id)
+    # }
+    dojo_to_delete = Dojo.objects.get(id= request.POST['delete'])
     dojo_to_delete.delete()
     # dojo = Dojo.objects.get(id=request.POST['delete'])
     # dojo.delete()
     # dojo = Dojo.objects.get(id=dojo_id)
     # dojo.delete()
-    return redirect('/', context)
+    return redirect('/')
