@@ -52,15 +52,17 @@
         <h3>All The Dojos!</h3>
             {% for dojo in all_dojos %}
             <div id="dojos">
-                <form action='/delete' method="POST">
+                <form class="form-group" action='/delete' method="POST">
                 {%csrf_token%}
-                <input type="hidden" name="delete" value="{{dojo.id}}">
-                <input type="submit" value="Delete Dojo">
+                <!-- <input type="hidden" name="delete" value="{{dojo.id}}">
+                <input class="btn btn-primary" type="submit" value="Delete Dojo"> -->
                 <!-- <a href="/delete/{{dojo.id}}">Delete</a> -->
                 <h4>{{dojo.name}}</h4>
-                <ul>
+                <input type="hidden" name="delete" value="{{dojo.id}}">
+                <input id="delete" class="btn btn-primary" type="submit" value="Delete Dojo">
+                <ul class="list-group">
                     {% for ninja in dojo.dojo_ninja_belongs_too.all %}
-                    <li>{{ninja.first_name}} {{ninja.last_name}}</li>
+                    <li class="list-group-item">{{ninja.first_name}} {{ninja.last_name}}</li>
                     {%endfor%}
                     {%endfor%}
                 </ul>
